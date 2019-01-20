@@ -42,7 +42,7 @@ namespace GenText
         private void StupidLogWindowFix()
         {
             var blankString = new StringBuilder();
-            for(int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 blankString.Append(" ");
             }
@@ -99,6 +99,8 @@ namespace GenText
         public void RefreshOptions()
         {
             opts = GlobalFunctions.GetProgramOptions();
+            LoadItemTypes();
+            LoadTemplates();
         }
 
         /// <summary>
@@ -200,6 +202,7 @@ namespace GenText
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
+            UnloadGeneratedOutput();
             var lines = GlobalFunctions.GenerateFromTemplate(opts, currentItem);
             var outString = new StringBuilder();
             foreach (string line in lines)
@@ -207,10 +210,17 @@ namespace GenText
                 outString.Append(line);
             }
 
-            generatedTemplate = outString.ToString();
-            btnCopy.IsEnabled = true;
-            btnSave.IsEnabled = true;
-            LogLine($"Generated description for item using template \"{opts.SelectedTemplate}\"");
+            if (!string.IsNullOrWhiteSpace(outString.ToString()))
+            {
+                generatedTemplate = outString.ToString();
+                btnCopy.IsEnabled = true;
+                btnSave.IsEnabled = true;
+                LogLine($"Generated description for item using template \"{opts.SelectedTemplate}\"");
+            }
+            else
+            {
+                LogLine("An error occurred generating description");
+            }
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -237,36 +247,26 @@ namespace GenText
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "txt files (*.txt)|*.txt",
-                Multiselect = false,
-                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath
-            };
+            var fileName = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
 
-            var result = dialog.ShowDialog();
-
-            if (result.HasValue && result.Value)
+            if (!string.IsNullOrWhiteSpace(fileName) && fileName.Split('.').Last().ToUpper().Equals("TXT"))
             {
-                if (dialog.FileName.Split('.').Last().ToUpper().Equals("TXT"))
+                var itemObject = GetCurrentItemType();
+
+                itemObject = GlobalFunctions.LoadObjectFromFile(itemObject, fileName, false);
+                if (itemObject.IsNothing())
                 {
-                    var itemObject = GetCurrentItemType();
-
-                    itemObject = GlobalFunctions.LoadObjectFromFile(itemObject, dialog.FileName, false);
-                    if (itemObject.IsNothing())
-                    {
-                        LogLine("Item type mismatch. Select correct item type from drop down or add a new item via Options");
-                    }
-                    else
-                    {
-                        LoadItem(itemObject, dialog.FileName);
-                        LogLine($"Loaded \"{dialog.FileName}\" as {itemObject.GetType().ToString()}");
-                    }
+                    LogLine("Item type mismatch. Select correct item type from drop down or add a new item via Options");
                 }
                 else
                 {
-                    GlobalFunctions.LogLine($"Items must be in a TXT file format");
+                    LoadItem(itemObject, fileName);
+                    LogLine($"Loaded \"{fileName}\" as {itemObject.GetType().ToString()}");
                 }
+            }
+            else
+            {
+                GlobalFunctions.LogLine($"Items must be in a TXT file format");
             }
         }
 

@@ -36,6 +36,7 @@ namespace GenText
             txtShortDescMaxSize.Text = opts.MaxShortDescriptionTextLength.ToString();
             chkBasicAdvancedEqual.IsChecked = opts.BasicFieldsSameAsAdvanced;
             txtDefaultOutItemPath.Text = opts.DefaultItemOutPath;
+            txtTermsPath.Text = opts.DefaultTermsPath;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -43,6 +44,7 @@ namespace GenText
             opts.MaxShortDescriptionTextLength = Convert.ToInt32(txtShortDescMaxSize.Text);
             opts.BasicFieldsSameAsAdvanced = chkBasicAdvancedEqual.IsChecked.HasValue && chkBasicAdvancedEqual.IsChecked.Value;
             opts.DefaultItemOutPath = txtDefaultOutItemPath.Text;
+            opts.DefaultTermsPath = txtTermsPath.Text;
 
             GlobalFunctions.SaveProgramOptions(opts);
             ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
@@ -73,7 +75,7 @@ namespace GenText
                 {
                     GlobalFunctions.LogLine($"Adding file {dialog.FileName}");
                     File.Copy(dialog.FileName, GlobalConstants.TemplatesPath + "\\" + dialog.FileName.Split('\\').Last(), true);
-                    ((MainWindow)System.Windows.Application.Current.Windows[0]).LoadTemplates();
+                    ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
                 }
                 else
                 {
@@ -88,6 +90,28 @@ namespace GenText
             //TODO:replace this with an add/remove item types functionality
             if (string.IsNullOrWhiteSpace(opts.ItemTypesString))
                 opts.ItemTypesString = "Computer|Part";
+        }
+
+        private void BtnSelectOutPath_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO:implement select directory for out path
+            MessageBox.Show("Not Implemented");
+            //var path = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
+
+            //if(!string.IsNullOrWhiteSpace(path))
+            //{
+            //    txtDefaultOutItemPath.Text = path;
+            //}
+        }
+
+        private void BtnSelectTermsPath_Click(object sender, RoutedEventArgs e)
+        {
+            var path = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
+
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                txtTermsPath.Text = path;
+            }
         }
     }
 }

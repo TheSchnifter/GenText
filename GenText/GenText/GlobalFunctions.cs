@@ -191,7 +191,7 @@ namespace GenText
 
         public static List<string> GenerateFromTemplate(ProgramOptions opts, Object item)
         {
-            var templateLines = GetTemplate(opts.SelectedTemplate);
+            var templateLines = GetStringCollectionFromFile(opts.SelectedTemplate);
             var itemProps = item.GetType().GetProperties();
             var newLines = new List<string>();
 
@@ -205,14 +205,18 @@ namespace GenText
                     var bracketedProp = $"{{{propToReplace}}}";
 
                     var itemProp = itemProps.FirstOrDefault(x => x.Name.Equals(propToReplace));
-
-                    if (itemProp == null)
+                    
+                    if(itemProp != null)
                     {
-                        LogLine($"Could not update {propToReplace}. Item does not contain property");
+                        newLines.Add(line.Replace(bracketedProp, itemProp.GetValue(item).ToString()).Trim());
+                    }
+                    else if (itemProp == null && propToReplace.ToUpper().Equals("TERMS"))
+                    {
+                        newLines.Add(line.Replace(bracketedProp, GetTerms(opts)));
                     }
                     else
                     {
-                        newLines.Add(line.Replace(bracketedProp, itemProp.GetValue(item).ToString()).Trim());
+                        LogLine($"Could not update {propToReplace}. Item does not contain property");
                     }
                 }
                 else if (!string.IsNullOrWhiteSpace(line))
@@ -225,7 +229,7 @@ namespace GenText
 
         }
 
-        public static List<string> GetTemplate(string path)
+        public static List<string> GetStringCollectionFromFile(string path)
         {
             var lines = new List<string>();
 
@@ -253,6 +257,17 @@ namespace GenText
             return lines;
         }
 
+        public static string GetTerms(ProgramOptions opts)
+        {
+            var termLines = GetStringCollectionFromFile(opts.DefaultTermsPath);
+            var sb = new StringBuilder();
+            foreach(string line in termLines)
+            {
+                sb.AppendLine(line);
+            }
+            return sb.ToString();
+        }
+
         public static string ShowSaveDialog(ProgramOptions opts, string defaultExt)
         {
             var dialog = new SaveFileDialog()
@@ -264,6 +279,27 @@ namespace GenText
             dialog.ShowDialog();
 
             return dialog.FileName;
+        }
+
+        public static string ShowOpenFileDialog(ProgramOptions opts, string filter)
+        {
+            var dialog = new OpenFileDialog()
+            {
+                Filter = filter,
+                Multiselect = false,
+                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath
+            };
+
+            var result = dialog.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                return dialog.FileName;
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }
