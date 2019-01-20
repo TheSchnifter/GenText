@@ -1,0 +1,64 @@
+﻿<Window x:Class="GenText.EditComputer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenText"
+        mc:Ignorable="d"
+        Title="EditComputer" Height="580.97" Width="793.284">
+    <Grid>
+        <TextBox x:Name="txtBasicCPU" HorizontalAlignment="Left" Height="23" Margin="137,163,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="102" TextChanged="TxtBasicCPU_TextChanged"/>
+        <TextBox x:Name="txtBasicRAM" HorizontalAlignment="Left" Height="23" Margin="137,191,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="103" TextChanged="TxtBasicRAM_TextChanged"/>
+        <TextBox x:Name="txtBasicHDD" HorizontalAlignment="Left" Height="23" Margin="137,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="104" TextChanged="TxtBasicHDD_TextChanged"/>
+        <TextBox x:Name="txtBasicOS" HorizontalAlignment="Left" Height="23" Margin="137,247,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="105" TextChanged="TxtBasicOS_TextChanged"/>
+        <TextBox x:Name="txtCPUType" HorizontalAlignment="Left" Height="23" Margin="137,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="106"/>
+        <TextBox x:Name="txtCPUSpeed" HorizontalAlignment="Left" Height="23" Margin="137,303,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="107"/>
+        <TextBox x:Name="txtCPUCores" HorizontalAlignment="Left" Height="23" Margin="137,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="108"/>
+        <TextBox x:Name="txtCPUThreads" HorizontalAlignment="Left" Height="23" Margin="137,359,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="109"/>
+        <TextBox x:Name="txtRAMCapacity" HorizontalAlignment="Left" Height="23" Margin="137,387,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="110"/>
+        <TextBox x:Name="txtRAMType" HorizontalAlignment="Left" Height="23" Margin="137,415,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="111"/>
+        <TextBox x:Name="txtHDDQuantity" HorizontalAlignment="Left" Height="23" Margin="137,443,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="112"/>
+        <TextBox x:Name="txtHDDSize" HorizontalAlignment="Left" Height="23" Margin="135,471,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="113"/>
+        <TextBox x:Name="txtHDDSpeed" HorizontalAlignment="Left" Height="23" Margin="504,191,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="115"/>
+        <TextBox x:Name="txtGFX" HorizontalAlignment="Left" Height="23" Margin="504,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="116"/>
+        <TextBox x:Name="txtScreenSize" HorizontalAlignment="Left" Height="23" Margin="504,247,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="117"/>
+        <TextBox x:Name="txtScreenRes" HorizontalAlignment="Left" Height="23" Margin="504,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="118"/>
+        <TextBox x:Name="txtScreenType" HorizontalAlignment="Left" Height="23" Margin="504,303,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="119"/>
+        <TextBox x:Name="txtBattery" HorizontalAlignment="Left" Height="23" Margin="504,331,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="120"/>
+        <TextBox x:Name="txtOSVersion" HorizontalAlignment="Left" Height="23" Margin="504,359,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="121"/>
+        <TextBox x:Name="txtWebcam" HorizontalAlignment="Left" Height="23" Margin="504,387,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="122"/>
+        <TextBox x:Name="txtOtherDrives" HorizontalAlignment="Left" Height="23" Margin="504,415,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="123"/>
+        <TextBox x:Name="txtNics" HorizontalAlignment="Left" Height="23" Margin="504,443,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="124"/>
+        <TextBox x:Name="txtItemTitle" HorizontalAlignment="Left" Height="23" Margin="115,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="100"/>
+        <TextBox x:Name="txtItemLongDesc" HorizontalAlignment="Left" Height="99" Margin="115,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
+        <TextBox x:Name="txtHDDInterface" HorizontalAlignment="Left" Height="23" Margin="504,163,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="114"/>
+        <Label x:Name="label_Copy" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="100"/>
+        <Label x:Name="label_Copy1" Content="Description" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Width="100"/>
+        <Label x:Name="label_Copy2" Content="Basic CPU" HorizontalAlignment="Left" Margin="30,163,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy3" Content="Basic RAM" HorizontalAlignment="Left" Margin="30,191,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy4" Content="Basic HDD" HorizontalAlignment="Left" Margin="30,219,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy5" Content="Basic OS" HorizontalAlignment="Left" Margin="30,247,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy6" Content="CPU Type" HorizontalAlignment="Left" Margin="30,275,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy7" Content="CPU Speed" HorizontalAlignment="Left" Margin="30,303,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy8" Content="CPU Cores" HorizontalAlignment="Left" Margin="30,331,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy9" Content="CPU Threads" HorizontalAlignment="Left" Margin="30,359,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy10" Content="RAM Capacity" HorizontalAlignment="Left" Margin="30,387,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy11" Content="RAM Type" HorizontalAlignment="Left" Margin="30,415,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy12" Content="HDD Quantity" HorizontalAlignment="Left" Margin="30,443,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy13" Content="HDD Size" HorizontalAlignment="Left" Margin="30,471,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy14" Content="HDD Interface" HorizontalAlignment="Left" Margin="399,163,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy15" Content="HDD Speed" HorizontalAlignment="Left" Margin="399,191,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy16" Content="Graphics Card" HorizontalAlignment="Left" Margin="399,219,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy17" Content="Screen Size" HorizontalAlignment="Left" Margin="399,247,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy18" Content="Resolution" HorizontalAlignment="Left" Margin="399,275,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy19" Content="Screen Type" HorizontalAlignment="Left" Margin="399,303,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy20" Content="Battery" HorizontalAlignment="Left" Margin="399,331,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy21" Content="OS Version" HorizontalAlignment="Left" Margin="399,359,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy22" Content="Webcam" HorizontalAlignment="Left" Margin="399,387,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11"/>
+        <Label x:Name="label_Copy23" Content="Other Drives" HorizontalAlignment="Left" Margin="399,415,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11" TabIndex="127" IsTabStop="True"/>
+        <Label x:Name="label_Copy24" Content="Network Cards" HorizontalAlignment="Left" Margin="399,443,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11" TabIndex="126" IsTabStop="True"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="504,506,0,0" VerticalAlignment="Top" Width="103" TabIndex="125" Click="BtnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="614,506,0,0" VerticalAlignment="Top" Width="90" TabIndex="128" Click="BtnCancel_Click"/>
+
+    </Grid>
+</Window>

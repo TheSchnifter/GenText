@@ -1,0 +1,43 @@
+﻿<Window x:Class="GenText.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenText"
+        mc:Ignorable="d"
+        Title="GenText v0.1" Height="539.5" Width="928">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="460*"/>
+            <ColumnDefinition Width="102*"/>
+            <ColumnDefinition Width="431*"/>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="lstLog" Height="262" Margin="10,237,6,0" VerticalAlignment="Top" FontSize="10" Grid.ColumnSpan="3" MinWidth="900">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="btnOptions" Content="Options" HorizontalAlignment="Left" Margin="272,11,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnOptions_Click" Grid.Column="2"/>
+        <ComboBox x:Name="cboTemplate" HorizontalAlignment="Left" Margin="283,10,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="CboTemplate_SelectionChanged" Grid.ColumnSpan="3" Height="25"/>
+        <Label x:Name="label" Content="Template" HorizontalAlignment="Left" Margin="220,10,0,0" VerticalAlignment="Top" Height="25"/>
+        <ComboBox x:Name="cboItemType" HorizontalAlignment="Left" Margin="82,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CboItemType_SelectionChanged" Height="25"/>
+        <Label x:Name="label1" Content="Item Type" HorizontalAlignment="Left" Margin="15,10,0,0" VerticalAlignment="Top" Height="25"/>
+        <Button x:Name="btnNew" Content="New" HorizontalAlignment="Left" Margin="22,11,0,0" VerticalAlignment="Top" Width="120" Click="BtnNew_Click" Grid.Column="2" Height="25"/>
+        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="147,11,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2" Click="BtnLoad_Click" Height="25"/>
+        <Button x:Name="btnEdit" Content="Edit" Grid.Column="2" HorizontalAlignment="Left" Margin="147,41,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" Click="BtnEdit_Click" Height="25"/>
+        <Button x:Name="btnGenerate" Content="Generate" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" Click="BtnGenerate_Click" Height="25"/>
+        <Label x:Name="label2" Content="Active Item:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lblActiveItem" Content="None" HorizontalAlignment="Left" Margin="82,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.077" Grid.ColumnSpan="3" Width="538"/>
+        <Button x:Name="btnUnload" Content="Save and Close" Grid.Column="2" HorizontalAlignment="Left" Margin="147,71,0,0" VerticalAlignment="Top" Width="120" Click="BtnUnload_Click" Height="25" IsEnabled="False"/>
+        <Button x:Name="btnCopy" Content="Copy to Clipboard" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="120" Click="BtnCopy_Click" Height="25" IsEnabled="False"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Width="120" Click="BtnSave_Click" Height="25" IsEnabled="False"/>
+        <Button x:Name="btnOpenHtmlDir" Content="Open Directory" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnOpenHtmlDir_Click" IsEnabled="False"/>
+        <Button x:Name="btnOpenItemDirectory" Content="Open Directory" Grid.Column="2" HorizontalAlignment="Left" Margin="147,101,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnOpenItemDirectory_Click" IsEnabled="False"/>
+        <Button x:Name="btnOpenBrowser" Content="Open in Browser" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnOpenBrowser_Click" IsEnabled="False"/>
+        <Button x:Name="btnSaveLog" Content="Save Log" Grid.Column="2" HorizontalAlignment="Left" Margin="147,191,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnSaveLog_Click"/>
+        <Button x:Name="btnClearLog" Content="Clear Log" Grid.Column="2" HorizontalAlignment="Left" Margin="272,191,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnClearLog_Click"/>
+
+    </Grid>
+</Window>
