@@ -19,9 +19,47 @@ namespace GenText
     /// </summary>
     public partial class EditPart : Window
     {
-        public EditPart(Part item, ProgramOptions opts)
+        Part p;
+        string path;
+        ProgramOptions opts;
+
+        public EditPart(Part item, ProgramOptions opts, string outPath)
         {
             InitializeComponent();
+            p = item;
+            path = outPath;
+            this.opts = opts;
+
+            txtItemLongDesc.Text = p.ItemLongDesc;
+            txtItemTitle.Text = p.ItemTitle;
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            p.ItemTitle = txtItemTitle.Text;
+            p.ItemLongDesc = txtItemLongDesc.Text;
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                path = GlobalFunctions.ShowSaveDialog(opts, "txt");
+            }
+
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                GlobalFunctions.SaveObjectToFile(p, path);
+                GlobalFunctions.RefreshItem(p, path);
+                GlobalFunctions.LogLine($"Saved item to \"{path}\"");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Must specify a path");
+            }
         }
     }
 }

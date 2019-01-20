@@ -39,8 +39,12 @@ namespace GenText
             LoadItemTypes();
         }
 
+        /// <summary>
+        /// force a large width first column until i can figure out how to do it cleanly
+        /// </summary>
         private void StupidLogWindowFix()
         {
+            //TODO: fix log window first column
             var blankString = new StringBuilder();
             for (int i = 0; i < 1000; i++)
             {
@@ -188,7 +192,7 @@ namespace GenText
                     editWindow = new EditComputer(new Computer(), opts, "");
                     break;
                 case "Part":
-                    editWindow = new EditPart(new Part(), opts);
+                    editWindow = new EditPart(new Part(), opts, "");
                     break;
                 default:
                     editWindow = new EditItem(new Item(), opts);
@@ -200,7 +204,9 @@ namespace GenText
 
         private void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
+            //clear anything previously generated
             UnloadGeneratedOutput();
+
             var lines = GlobalFunctions.GenerateFromTemplate(opts, currentItem);
             var outString = new StringBuilder();
             foreach (string line in lines)
@@ -208,7 +214,7 @@ namespace GenText
                 outString.Append(line);
             }
 
-            if (!string.IsNullOrWhiteSpace(outString.ToString()))
+            if (!string.IsNullOrWhiteSpace(outString.ToString()) && !outString.ToString().Contains("Error replacing property"))
             {
                 generatedTemplate = outString.ToString();
                 btnCopy.IsEnabled = true;
@@ -217,7 +223,7 @@ namespace GenText
             }
             else
             {
-                LogLine("An error occurred generating description");
+                LogLine("One or more errors occurred generating description. Does the template selected match the loaded item type?");
             }
         }
 
@@ -232,7 +238,7 @@ namespace GenText
                         editWindow = new EditComputer((Computer)currentItem, opts, lblActiveItem.Content.ToString());
                         break;
                     case "Part":
-                        editWindow = new EditPart((Part)currentItem, opts);
+                        editWindow = new EditPart((Part)currentItem, opts, lblActiveItem.Content.ToString());
                         break;
                     default:
                         editWindow = new EditItem((Item)currentItem, opts);

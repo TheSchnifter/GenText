@@ -111,6 +111,10 @@ namespace GenText
                 GlobalFunctions.LogLine($"Saved item to \"{path}\"");
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show("Must specify a path");
+            }
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

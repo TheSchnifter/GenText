@@ -33,6 +33,7 @@ namespace GenText
 
         private void PopulateExistingOptions()
         {
+            //TODO: add short description generation
             txtShortDescMaxSize.Text = opts.MaxShortDescriptionTextLength.ToString();
             chkBasicAdvancedEqual.IsChecked = opts.BasicFieldsSameAsAdvanced;
             txtDefaultOutItemPath.Text = opts.DefaultItemOutPath;
@@ -47,8 +48,8 @@ namespace GenText
             opts.DefaultTermsPath = txtTermsPath.Text;
 
             GlobalFunctions.SaveProgramOptions(opts);
+            GlobalFunctions.LogLine("Saved options");
             ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
-            GlobalFunctions.LogLine("Options have been updated");
             this.Close();
         }
 
@@ -58,29 +59,31 @@ namespace GenText
             this.Close();
         }
 
+        /// <summary>
+        /// copy a user specified html file to the template path
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnAddTemplate_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "Html-Files(*.html)|*.html",
-                Multiselect = false,
-                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath
-            };
+            var path = GlobalFunctions.ShowOpenFileDialog(opts, "Html-Files(*.html)|*.html");
 
-            var result = dialog.ShowDialog();
-
-            if(result.HasValue && result.Value)
+            if(!string.IsNullOrWhiteSpace(path))
             {
-                if(dialog.FileName.Split('.').Last().ToUpper().Equals("HTML"))
+                if(path.Split('.').Last().ToUpper().Equals("HTML"))
                 {
-                    GlobalFunctions.LogLine($"Adding file {dialog.FileName}");
-                    File.Copy(dialog.FileName, GlobalConstants.TemplatesPath + "\\" + dialog.FileName.Split('\\').Last(), true);
+                    File.Copy(path, GlobalConstants.TemplatesPath + "\\" + path.Split('\\').Last(), true);
+                    GlobalFunctions.LogLine($"Added template file \"{path}\" to Templates");
                     ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
                 }
                 else
                 {
-                    GlobalFunctions.LogLine($"Did not add file {dialog.FileName}. Can only add HTML files");
+                    GlobalFunctions.LogLine($"Did not add template file \"{path}\". File must be HTML type");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Must specify a file");
             }
 
         }
@@ -89,7 +92,7 @@ namespace GenText
         {
             //TODO:replace this with an add/remove item types functionality
             if (string.IsNullOrWhiteSpace(opts.ItemTypesString))
-                opts.ItemTypesString = "Computer|Part";
+                opts.ItemTypesString = "Computer|Part|Item";
         }
 
         private void BtnSelectOutPath_Click(object sender, RoutedEventArgs e)

@@ -216,7 +216,8 @@ namespace GenText
                     }
                     else
                     {
-                        LogLine($"Could not update {propToReplace}. Item does not contain property");
+                        LogLine($"Item {item.GetType().ToString()} does not contain property {propToReplace}");
+                        newLines.Add(@"<div style='display:none;'>Error replacing property " + propToReplace + "</div>");
                     }
                 }
                 else if (!string.IsNullOrWhiteSpace(line))
