@@ -99,8 +99,6 @@ namespace GenText
         public void RefreshOptions()
         {
             opts = GlobalFunctions.GetProgramOptions();
-            LoadItemTypes();
-            LoadTemplates();
         }
 
         /// <summary>
