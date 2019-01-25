@@ -30,7 +30,7 @@
         <TextBox x:Name="txtOtherDrives" HorizontalAlignment="Left" Height="23" Margin="504,415,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="123"/>
         <TextBox x:Name="txtNics" HorizontalAlignment="Left" Height="23" Margin="504,443,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="124"/>
         <TextBox x:Name="txtItemTitle" HorizontalAlignment="Left" Height="23" Margin="115,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="100"/>
-        <TextBox x:Name="txtItemLongDesc" HorizontalAlignment="Left" Height="99" Margin="115,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
+        <TextBox x:Name="txtItemLongDescP1" HorizontalAlignment="Left" Height="58" Margin="115,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
         <TextBox x:Name="txtHDDInterface" HorizontalAlignment="Left" Height="23" Margin="504,163,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" FontSize="11" TabIndex="114"/>
         <Label x:Name="label_Copy" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="100"/>
         <Label x:Name="label_Copy1" Content="Description" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Width="100"/>
@@ -59,6 +59,7 @@
         <Label x:Name="label_Copy24" Content="Network Cards" HorizontalAlignment="Left" Margin="399,443,0,0" VerticalAlignment="Top" Height="23" Width="100" FontSize="11" TabIndex="126" IsTabStop="True"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="504,506,0,0" VerticalAlignment="Top" Width="103" TabIndex="125" Click="BtnSave_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="614,506,0,0" VerticalAlignment="Top" Width="90" TabIndex="128" Click="BtnCancel_Click"/>
+        <TextBox x:Name="txtItemLongDescP2" HorizontalAlignment="Left" Height="58" Margin="115,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
 
     </Grid>
 </Window>

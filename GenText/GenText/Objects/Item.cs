@@ -9,6 +9,7 @@ namespace GenText
     public class Item
     {
         public string ItemTitle { get; set; }
-        public string ItemLongDesc { get; set; }
+        public string ItemLongDescP1 { get; set; }
+        public string ItemLongDescP2 { get; set; }
     }
 }

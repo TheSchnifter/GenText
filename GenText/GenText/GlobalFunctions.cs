@@ -210,9 +210,13 @@ namespace GenText
                     {
                         newLines.Add(line.Replace(bracketedProp, itemProp.GetValue(item).ToString()).Trim());
                     }
-                    else if (itemProp == null && propToReplace.ToUpper().Equals("TERMS"))
+                    else if (itemProp == null && propToReplace.ToUpper().Contains("TERMSP1"))
                     {
-                        newLines.Add(line.Replace(bracketedProp, GetTerms(opts)));
+                        newLines.Add(line.Replace(bracketedProp, GetTermsP1(opts)));
+                    }
+                    else if (itemProp == null && propToReplace.ToUpper().Contains("TERMSP2"))
+                    {
+                        newLines.Add(line.Replace(bracketedProp, GetTermsP2(opts)));
                     }
                     else
                     {
@@ -258,11 +262,22 @@ namespace GenText
             return lines;
         }
 
-        public static string GetTerms(ProgramOptions opts)
+        public static string GetTermsP1(ProgramOptions opts)
         {
-            var termLines = GetStringCollectionFromFile(opts.DefaultTermsPath);
+            var termLines = GetStringCollectionFromFile(opts.DefaultTermsPathP1);
             var sb = new StringBuilder();
             foreach(string line in termLines)
+            {
+                sb.AppendLine(line);
+            }
+            return sb.ToString();
+        }
+
+        public static string GetTermsP2(ProgramOptions opts)
+        {
+            var termLines = GetStringCollectionFromFile(opts.DefaultTermsPathP2);
+            var sb = new StringBuilder();
+            foreach (string line in termLines)
             {
                 sb.AppendLine(line);
             }

@@ -37,7 +37,8 @@ namespace GenText
             txtShortDescMaxSize.Text = opts.MaxShortDescriptionTextLength.ToString();
             chkBasicAdvancedEqual.IsChecked = opts.BasicFieldsSameAsAdvanced;
             txtDefaultOutItemPath.Text = opts.DefaultItemOutPath;
-            txtTermsPath.Text = opts.DefaultTermsPath;
+            txtTermsPath.Text = opts.DefaultTermsPathP1;
+            txtTermsPath_Copy.Text = opts.DefaultTermsPathP2;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -45,7 +46,8 @@ namespace GenText
             opts.MaxShortDescriptionTextLength = Convert.ToInt32(txtShortDescMaxSize.Text);
             opts.BasicFieldsSameAsAdvanced = chkBasicAdvancedEqual.IsChecked.HasValue && chkBasicAdvancedEqual.IsChecked.Value;
             opts.DefaultItemOutPath = txtDefaultOutItemPath.Text;
-            opts.DefaultTermsPath = txtTermsPath.Text;
+            opts.DefaultTermsPathP1 = txtTermsPath.Text;
+            opts.DefaultTermsPathP2 = txtTermsPath_Copy.Text;
 
             GlobalFunctions.SaveProgramOptions(opts);
             GlobalFunctions.LogLine("Saved options");

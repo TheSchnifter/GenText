@@ -19,6 +19,7 @@
         <Label x:Name="label_Copy1" Content="Terms Path" HorizontalAlignment="Left" Margin="130,110,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnSelectOutPath" Content="..." HorizontalAlignment="Left" Margin="747,21,0,0" VerticalAlignment="Top" Width="35" Height="23" Click="BtnSelectOutPath_Click"/>
         <Button x:Name="btnSelectTermsPath" Content="..." HorizontalAlignment="Left" Margin="747,110,0,0" VerticalAlignment="Top" Width="35" Height="23" Click="BtnSelectTermsPath_Click"/>
+        <TextBox x:Name="txtTermsPath_Copy" HorizontalAlignment="Left" Height="23" Margin="202,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
 
     </Grid>
 </Window>

@@ -30,7 +30,7 @@ namespace GenText
             path = outPath;
             this.opts = opts;
 
-            txtItemLongDesc.Text = p.ItemLongDesc;
+            txtItemLongDesc.Text = p.ItemLongDescP1;
             txtItemTitle.Text = p.ItemTitle;
         }
 
@@ -42,7 +42,7 @@ namespace GenText
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             p.ItemTitle = txtItemTitle.Text;
-            p.ItemLongDesc = txtItemLongDesc.Text;
+            p.ItemLongDescP1 = txtItemLongDesc.Text;
 
             if (string.IsNullOrWhiteSpace(path))
             {

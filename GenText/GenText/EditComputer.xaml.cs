@@ -66,7 +66,8 @@ namespace GenText
             txtOtherDrives.Text = c.OtherDrives;
             txtNics.Text = c.Nics;
             txtItemTitle.Text = c.ItemTitle;
-            txtItemLongDesc.Text = c.ItemLongDesc;
+            txtItemLongDescP1.Text = c.ItemLongDescP1;
+            txtItemLongDescP2.Text = c.ItemLongDescP2;
             txtHDDInterface.Text = c.HDDInterface;
         }
 
@@ -96,7 +97,8 @@ namespace GenText
             c.OtherDrives = txtOtherDrives.Text;
             c.Nics = txtNics.Text;
             c.ItemTitle = txtItemTitle.Text;
-            c.ItemLongDesc = txtItemLongDesc.Text;
+            c.ItemLongDescP1 = txtItemLongDescP1.Text;
+            c.ItemLongDescP2 = txtItemLongDescP2.Text;
             c.HDDInterface = txtHDDInterface.Text;
 
             if (string.IsNullOrWhiteSpace(path))

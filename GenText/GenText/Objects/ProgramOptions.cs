@@ -35,8 +35,11 @@ namespace GenText
         private string _defaultItemOutPath = "";
         public string DefaultItemOutPath { get => _defaultItemOutPath; set => _defaultItemOutPath = value; }
 
-        private string _defaultTermsPath = "";
-        public string DefaultTermsPath { get => _defaultTermsPath; set => _defaultTermsPath = value; }
+        private string _defaultTermsPathP1 = "";
+        public string DefaultTermsPathP1 { get => _defaultTermsPathP1; set => _defaultTermsPathP1 = value; }
+
+        private string _defaultTermsPathP2 = "";
+        public string DefaultTermsPathP2 { get => _defaultTermsPathP2; set => _defaultTermsPathP2 = value; }
 
 
     }
