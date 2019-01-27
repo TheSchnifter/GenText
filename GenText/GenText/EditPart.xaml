@@ -8,11 +8,12 @@
         Title="EditPart" Height="450" Width="800">
     <Grid>
         <TextBox x:Name="txtItemTitle" HorizontalAlignment="Left" Height="23" Margin="115,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="100"/>
-        <TextBox x:Name="txtItemLongDesc" HorizontalAlignment="Left" Height="187" Margin="115,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
+        <TextBox x:Name="txtItemLongDescP1" HorizontalAlignment="Left" Height="134" Margin="115,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
         <Label x:Name="label_Copy" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="23" Width="100"/>
         <Label x:Name="label_Copy1" Content="Description" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Height="23" Width="100"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="480,369,0,0" VerticalAlignment="Top" Width="116" TabIndex="102" Height="25" IsDefault="True" Click="BtnSave_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="618,369,0,0" VerticalAlignment="Top" Width="120" TabIndex="109" Height="25" IsCancel="True" Click="BtnCancel_Click"/>
+        <TextBox x:Name="txtItemLongDescP2" HorizontalAlignment="Left" Height="134" Margin="115,177,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="628" FontSize="11" TabIndex="101"/>
 
     </Grid>
 </Window>

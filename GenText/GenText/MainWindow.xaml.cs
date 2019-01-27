@@ -284,6 +284,7 @@ namespace GenText
             if (!string.IsNullOrWhiteSpace(generatedTemplate))
             {
                 Clipboard.SetText(generatedTemplate);
+                LogLine("Copied generated HTML to clipboard");
             }
         }
 
