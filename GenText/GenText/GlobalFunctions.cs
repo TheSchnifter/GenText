@@ -284,17 +284,17 @@ namespace GenText
             return sb.ToString();
         }
 
-        public static string ShowSaveDialog(ProgramOptions opts, string defaultExt)
+        public static string ShowSaveDialog(ProgramOptions opts, string defaultExt, string name)
         {
             var dialog = new SaveFileDialog()
             {
                 DefaultExt = defaultExt,
-                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath
+                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath,
+                FileName = name
             };
+            var result = dialog.ShowDialog();
 
-            dialog.ShowDialog();
-
-            return dialog.FileName;
+            return result.HasValue && result.Value ? dialog.FileName : null;
         }
 
         public static string ShowOpenFileDialog(ProgramOptions opts, string filter)
@@ -308,14 +308,7 @@ namespace GenText
 
             var result = dialog.ShowDialog();
 
-            if (result.HasValue && result.Value)
-            {
-                return dialog.FileName;
-            }
-            else
-            {
-                return null;
-            }
+            return result.HasValue && result.Value ? dialog.FileName : null;
         }
 
     }

@@ -290,7 +290,7 @@ namespace GenText
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            generatedTemplatePath = GlobalFunctions.ShowSaveDialog(opts, "html");
+            generatedTemplatePath = GlobalFunctions.ShowSaveDialog(opts, "html", "desc");
 
             if (string.IsNullOrWhiteSpace(generatedTemplatePath))
             {
@@ -331,17 +331,19 @@ namespace GenText
 
         private void BtnSaveLog_Click(object sender, RoutedEventArgs e)
         {
-            var path = GlobalFunctions.ShowSaveDialog(opts, "txt");
+            var path = GlobalFunctions.ShowSaveDialog(opts, "txt", $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}_{DateTime.Now.ToLongTimeString()}_log");
 
-            var logs = new List<string>();
-            foreach (var log in lstLog.Items)
+            if (!string.IsNullOrWhiteSpace(path))
             {
-                logs.Add(log.ToString());
+                var logs = new List<string>();
+                foreach (var log in lstLog.Items)
+                {
+                    logs.Add(log.ToString());
+                }
+
+                GlobalFunctions.SaveLineCollectionToFile(logs, path);
+                LogLine($"Saved logs to \"{path}\"");
             }
-
-            GlobalFunctions.SaveLineCollectionToFile(logs, path);
-            LogLine($"Saved logs to \"{path}\"");
-
         }
     }
 }
