@@ -48,7 +48,7 @@ namespace GenText
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                path = GlobalFunctions.ShowSaveDialog(opts, "txt");
+                path = GlobalFunctions.ShowSaveDialog(opts, "txt", "part");
             }
 
             if (!string.IsNullOrWhiteSpace(path))
@@ -57,10 +57,6 @@ namespace GenText
                 GlobalFunctions.RefreshItem(p, path);
                 GlobalFunctions.LogLine($"Saved item to \"{path}\"");
                 this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Must specify a path");
             }
         }
     }
