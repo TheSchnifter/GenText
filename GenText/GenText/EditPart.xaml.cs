@@ -19,20 +19,20 @@ namespace GenText
     /// </summary>
     public partial class EditPart : Window
     {
-        Part p;
+        Part part;
         string path;
         ProgramOptions opts;
 
         public EditPart(Part item, ProgramOptions opts, string outPath)
         {
             InitializeComponent();
-            p = item;
+            part = item;
             path = outPath;
             this.opts = opts;
 
-            txtItemLongDescP1.Text = p.ItemLongDescP1;
-            txtItemLongDescP2.Text = p.ItemLongDescP2;
-            txtItemTitle.Text = p.ItemTitle;
+            txtItemLongDescP1.Text = part.ItemLongDescP1;
+            txtItemLongDescP2.Text = part.ItemLongDescP2;
+            txtItemTitle.Text = part.ItemTitle;
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -42,9 +42,9 @@ namespace GenText
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            p.ItemTitle = txtItemTitle.Text;
-            p.ItemLongDescP1 = txtItemLongDescP1.Text;
-            p.ItemLongDescP2 = txtItemLongDescP2.Text;
+            part.ItemTitle = txtItemTitle.Text;
+            part.ItemLongDescP1 = txtItemLongDescP1.Text;
+            part.ItemLongDescP2 = txtItemLongDescP2.Text;
 
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -53,8 +53,9 @@ namespace GenText
 
             if (!string.IsNullOrWhiteSpace(path))
             {
-                GlobalFunctions.SaveObjectToFile(p, path);
-                GlobalFunctions.RefreshItem(p, path);
+                GlobalFunctions.SaveObjectToFile(part, path);
+                GlobalFunctions.RefreshItem(part, path);
+                GlobalFunctions.RefreshMainWindowOptions();
                 GlobalFunctions.LogLine($"Saved item to \"{path}\"");
                 this.Close();
             }

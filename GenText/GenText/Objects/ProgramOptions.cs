@@ -32,8 +32,8 @@ namespace GenText
             set { _selectedItemType = value; }
         }
 
-        private string _defaultItemOutPath = "";
-        public string DefaultItemOutPath { get => _defaultItemOutPath; set => _defaultItemOutPath = value; }
+        private string _lastSaveLocation = "";
+        public string LastSaveLocation { get => _lastSaveLocation; set => _lastSaveLocation = value; }
 
         private string _defaultTermsPathP1 = "";
         public string DefaultTermsPathP1 { get => _defaultTermsPathP1; set => _defaultTermsPathP1 = value; }

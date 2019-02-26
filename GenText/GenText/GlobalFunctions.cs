@@ -29,6 +29,14 @@ namespace GenText
         }
 
         /// <summary>
+        /// Options changed somewhere. Update the in memory options in MainWindow
+        /// </summary>
+        public static void RefreshMainWindowOptions()
+        {
+            ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
+        }
+
+        /// <summary>
         /// creates a new blank file if doesn't exist, else do nothing
         /// </summary>
         /// <param name="path"></param>
@@ -205,8 +213,8 @@ namespace GenText
                     var bracketedProp = $"{{{propToReplace}}}";
 
                     var itemProp = itemProps.FirstOrDefault(x => x.Name.Equals(propToReplace));
-                    
-                    if(itemProp != null)
+
+                    if (itemProp != null)
                     {
                         newLines.Add(line.Replace(bracketedProp, itemProp.GetValue(item).ToString()).Trim());
                     }
@@ -234,6 +242,7 @@ namespace GenText
 
         }
 
+        //TODO: split out data functions from non data functions
         public static List<string> GetStringCollectionFromFile(string path)
         {
             var lines = new List<string>();
@@ -266,7 +275,7 @@ namespace GenText
         {
             var termLines = GetStringCollectionFromFile(opts.DefaultTermsPathP1);
             var sb = new StringBuilder();
-            foreach(string line in termLines)
+            foreach (string line in termLines)
             {
                 sb.AppendLine(line);
             }
@@ -289,12 +298,21 @@ namespace GenText
             var dialog = new SaveFileDialog()
             {
                 DefaultExt = defaultExt,
-                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath,
+                InitialDirectory = string.IsNullOrWhiteSpace(opts.LastSaveLocation) ? GlobalConstants.DefaultPath : opts.LastSaveLocation,
                 FileName = name
             };
             var result = dialog.ShowDialog();
 
-            return result.HasValue && result.Value ? dialog.FileName : null;
+            if(result.HasValue && result.Value)
+            {
+                UpdateLastSaveLocation(dialog.FileName);
+                return dialog.FileName;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         public static string ShowOpenFileDialog(ProgramOptions opts, string filter)
@@ -303,12 +321,27 @@ namespace GenText
             {
                 Filter = filter,
                 Multiselect = false,
-                InitialDirectory = string.IsNullOrWhiteSpace(opts.DefaultItemOutPath) ? GlobalConstants.DefaultPath : opts.DefaultItemOutPath
+                InitialDirectory = string.IsNullOrWhiteSpace(opts.LastSaveLocation) ? GlobalConstants.DefaultPath : opts.LastSaveLocation
             };
 
             var result = dialog.ShowDialog();
 
             return result.HasValue && result.Value ? dialog.FileName : null;
+        }
+
+        public static void UpdateLastSaveLocation(string path)
+        {
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                if (path.Last() != '\\')
+                {
+                    path = path.Substring(0, path.LastIndexOf('\\') + 1);
+                }
+
+                ProgramOptions opts = GetProgramOptions();
+                opts.LastSaveLocation = path;
+                SaveProgramOptions(opts);
+            }
         }
 
     }

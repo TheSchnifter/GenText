@@ -110,6 +110,7 @@ namespace GenText
             {
                 GlobalFunctions.SaveObjectToFile(c, path);
                 GlobalFunctions.RefreshItem(c, path);
+                GlobalFunctions.RefreshMainWindowOptions();
                 GlobalFunctions.LogLine($"Saved item to \"{path}\"");
                 this.Close();
             }

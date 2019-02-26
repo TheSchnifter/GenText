@@ -253,30 +253,34 @@ namespace GenText
         {
             var fileName = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
 
-            if (!string.IsNullOrWhiteSpace(fileName) && fileName.Split('.').Last().ToUpper().Equals("TXT"))
+            if (!string.IsNullOrWhiteSpace(fileName))
             {
-                var itemObject = GetCurrentItemType();
-
-                itemObject = GlobalFunctions.LoadObjectFromFile(itemObject, fileName, false);
-                if (itemObject.IsNothing())
+                if (fileName.Split('.').Last().ToUpper().Equals("TXT"))
                 {
-                    LogLine("Item type mismatch. Select correct item type from drop down or add a new item via Options");
+                    var itemObject = GetCurrentItemType();
+
+                    itemObject = GlobalFunctions.LoadObjectFromFile(itemObject, fileName, false);
+                    if (itemObject.IsNothing())
+                    {
+                        LogLine("Item type mismatch. Select correct item type from drop down or add a new item via Options");
+                    }
+                    else
+                    {
+                        LoadItem(itemObject, fileName);
+                        LogLine($"Loaded \"{fileName}\" as {itemObject.GetType().ToString()}");
+                    }
                 }
                 else
                 {
-                    LoadItem(itemObject, fileName);
-                    LogLine($"Loaded \"{fileName}\" as {itemObject.GetType().ToString()}");
+                    GlobalFunctions.LogLine($"Items must be in a TXT file format");
                 }
-            }
-            else
-            {
-                GlobalFunctions.LogLine($"Items must be in a TXT file format");
             }
         }
 
         private void BtnUnload_Click(object sender, RoutedEventArgs e)
         {
             UnloadItem();
+            RefreshOptions();
         }
 
         private void BtnCopy_Click(object sender, RoutedEventArgs e)
@@ -292,11 +296,7 @@ namespace GenText
         {
             generatedTemplatePath = GlobalFunctions.ShowSaveDialog(opts, "html", "desc");
 
-            if (string.IsNullOrWhiteSpace(generatedTemplatePath))
-            {
-                LogLine("Must provide a path to save");
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(generatedTemplatePath))
             {
                 GlobalFunctions.SaveSingleLineToFile(generatedTemplate, generatedTemplatePath);
 
@@ -305,6 +305,7 @@ namespace GenText
                 LogLine($"Saved template HTML to \"{generatedTemplatePath}\"");
                 btnOpenBrowser.IsEnabled = true;
                 btnOpenHtmlDir.IsEnabled = true;
+                RefreshOptions();
             }
         }
 
@@ -331,7 +332,7 @@ namespace GenText
 
         private void BtnSaveLog_Click(object sender, RoutedEventArgs e)
         {
-            var path = GlobalFunctions.ShowSaveDialog(opts, "txt", $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}_{DateTime.Now.ToLongTimeString()}_log");
+            var path = GlobalFunctions.ShowSaveDialog(opts, "txt", $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}_{DateTime.Now.Hour}-{DateTime.Now.Minute}_log");
 
             if (!string.IsNullOrWhiteSpace(path))
             {
@@ -342,6 +343,7 @@ namespace GenText
                 }
 
                 GlobalFunctions.SaveLineCollectionToFile(logs, path);
+                RefreshOptions();
                 LogLine($"Saved logs to \"{path}\"");
             }
         }

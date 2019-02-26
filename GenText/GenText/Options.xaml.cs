@@ -36,7 +36,6 @@ namespace GenText
             //TODO: add short description generation
             txtShortDescMaxSize.Text = opts.MaxShortDescriptionTextLength.ToString();
             chkBasicAdvancedEqual.IsChecked = opts.BasicFieldsSameAsAdvanced;
-            txtDefaultOutItemPath.Text = opts.DefaultItemOutPath;
             txtTermsPath.Text = opts.DefaultTermsPathP1;
             txtTermsPath_Copy.Text = opts.DefaultTermsPathP2;
         }
@@ -45,19 +44,18 @@ namespace GenText
         {
             opts.MaxShortDescriptionTextLength = Convert.ToInt32(txtShortDescMaxSize.Text);
             opts.BasicFieldsSameAsAdvanced = chkBasicAdvancedEqual.IsChecked.HasValue && chkBasicAdvancedEqual.IsChecked.Value;
-            opts.DefaultItemOutPath = txtDefaultOutItemPath.Text;
             opts.DefaultTermsPathP1 = txtTermsPath.Text;
             opts.DefaultTermsPathP2 = txtTermsPath_Copy.Text;
 
             GlobalFunctions.SaveProgramOptions(opts);
             GlobalFunctions.LogLine("Saved options");
-            ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
+            GlobalFunctions.RefreshMainWindowOptions();
             this.Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
+            GlobalFunctions.RefreshMainWindowOptions();
             this.Close();
         }
 
@@ -76,7 +74,7 @@ namespace GenText
                 {
                     File.Copy(path, GlobalConstants.TemplatesPath + "\\" + path.Split('\\').Last(), true);
                     GlobalFunctions.LogLine($"Added template file \"{path}\" to Templates");
-                    ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
+                    GlobalFunctions.RefreshMainWindowOptions();
                 }
                 else
                 {
