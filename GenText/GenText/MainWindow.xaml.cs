@@ -33,7 +33,7 @@ namespace GenText
         {
             InitializeComponent();
             StupidLogWindowFix();
-            Bootstrapper.InitApplication();
+            AppService.InitApplication();
             RefreshOptions();
             LoadTemplates();
             LoadItemTypes();
@@ -65,7 +65,7 @@ namespace GenText
 
         public void LoadTemplates()
         {
-            var templateNames = GlobalFunctions.LoadTemplateList();
+            var templateNames = AppService.LoadTemplateList();
 
             cboTemplate.Items.Clear();
             foreach (string name in templateNames)
@@ -96,13 +96,13 @@ namespace GenText
         private void CboTemplate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             opts.SelectedTemplate = cboTemplate.SelectedItem.ToString();
-            GlobalFunctions.SaveProgramOptions(opts);
+            AppService.SaveProgramOptions(opts);
             RefreshOptions();
         }
 
         public void RefreshOptions()
         {
-            opts = GlobalFunctions.GetProgramOptions();
+            opts = AppService.GetProgramOptions();
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace GenText
         {
             if (itemLoaded)
             {
-                GlobalFunctions.SaveObjectToFile(currentItem, lblActiveItem.Content.ToString());
+                FileIoService.SaveObjectToFile(currentItem, lblActiveItem.Content.ToString());
                 currentItem = null;
                 itemLoaded = false;
                 btnEdit.IsEnabled = false;
@@ -159,7 +159,7 @@ namespace GenText
         private void CboItemType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             opts.SelectedItemType = cboItemType.SelectedItem.ToString();
-            GlobalFunctions.SaveProgramOptions(opts);
+            AppService.SaveProgramOptions(opts);
             RefreshOptions();
         }
 
@@ -207,7 +207,7 @@ namespace GenText
             //clear anything previously generated
             UnloadGeneratedOutput();
 
-            var lines = GlobalFunctions.GenerateFromTemplate(opts, currentItem);
+            var lines = AppService.GenerateFromTemplate(opts, currentItem);
             var outString = new StringBuilder();
             foreach (string line in lines)
             {
@@ -251,7 +251,7 @@ namespace GenText
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-            var fileName = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
+            var fileName = AppService.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
 
             if (!string.IsNullOrWhiteSpace(fileName))
             {
@@ -259,7 +259,7 @@ namespace GenText
                 {
                     var itemObject = GetCurrentItemType();
 
-                    itemObject = GlobalFunctions.LoadObjectFromFile(itemObject, fileName, false);
+                    itemObject = FileIoService.LoadObjectFromFile(itemObject, fileName, false);
                     if (itemObject.IsNothing())
                     {
                         LogLine("Item type mismatch. Select correct item type from drop down or add a new item via Options");
@@ -272,7 +272,7 @@ namespace GenText
                 }
                 else
                 {
-                    GlobalFunctions.LogLine($"Items must be in a TXT file format");
+                    AppService.LogLine($"Items must be in a TXT file format");
                 }
             }
         }
@@ -294,11 +294,11 @@ namespace GenText
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            generatedTemplatePath = GlobalFunctions.ShowSaveDialog(opts, "html", "desc");
+            generatedTemplatePath = AppService.ShowSaveDialog(opts, "html", "desc");
 
             if (!string.IsNullOrWhiteSpace(generatedTemplatePath))
             {
-                GlobalFunctions.SaveSingleLineToFile(generatedTemplate, generatedTemplatePath);
+                FileIoService.SaveSingleLineToFile(generatedTemplate, generatedTemplatePath);
 
                 var endOfDirectoryPath = generatedTemplatePath.LastIndexOf('\\');
                 generatedTemplateDirectory = generatedTemplatePath.Substring(0, endOfDirectoryPath);
@@ -332,7 +332,7 @@ namespace GenText
 
         private void BtnSaveLog_Click(object sender, RoutedEventArgs e)
         {
-            var path = GlobalFunctions.ShowSaveDialog(opts, "txt", $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}_{DateTime.Now.Hour}-{DateTime.Now.Minute}_log");
+            var path = AppService.ShowSaveDialog(opts, "txt", $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}_{DateTime.Now.Hour}-{DateTime.Now.Minute}_log");
 
             if (!string.IsNullOrWhiteSpace(path))
             {
@@ -342,7 +342,7 @@ namespace GenText
                     logs.Add(log.ToString());
                 }
 
-                GlobalFunctions.SaveLineCollectionToFile(logs, path);
+                FileIoService.SaveLineCollectionToFile(logs, path);
                 RefreshOptions();
                 LogLine($"Saved logs to \"{path}\"");
             }

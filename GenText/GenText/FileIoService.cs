@@ -155,11 +155,6 @@ namespace GenText
                 AppService.LogLine(e.Message);
             }
         }
-               
-        public static List<string> LoadTemplateList()
-        {
-            return Directory.EnumerateFiles(GlobalConstants.TemplatesPath).ToList();
-        }
         
         //TODO: split out data functions from non data functions
         public static List<string> GetStringCollectionFromFile(string path)

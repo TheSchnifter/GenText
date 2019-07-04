@@ -55,6 +55,11 @@ namespace GenText
             return (ProgramOptions)FileIoService.LoadObjectFromFile(opts, GlobalConstants.OptionsFilePath, true);
         }
 
+        public static List<string> LoadTemplateList()
+        {
+            return Directory.EnumerateFiles(GlobalConstants.TemplatesPath).ToList();
+        }
+
         public static void SaveProgramOptions(ProgramOptions opts)
         {
             FileIoService.SaveObjectToFile(opts, GlobalConstants.OptionsFilePath);

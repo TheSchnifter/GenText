@@ -103,15 +103,15 @@ namespace GenText
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                path = GlobalFunctions.ShowSaveDialog(opts, "txt", "computer");
+                path = AppService.ShowSaveDialog(opts, "txt", "computer");
             }
 
             if (!string.IsNullOrWhiteSpace(path))
             {
-                GlobalFunctions.SaveObjectToFile(c, path);
-                GlobalFunctions.RefreshItem(c, path);
-                GlobalFunctions.RefreshMainWindowOptions();
-                GlobalFunctions.LogLine($"Saved item to \"{path}\"");
+                FileIoService.SaveObjectToFile(c, path);
+                AppService.RefreshItem(c, path);
+                AppService.RefreshMainWindowOptions();
+                AppService.LogLine($"Saved item to \"{path}\"");
                 this.Close();
             }
         }

@@ -26,7 +26,7 @@ namespace GenText
         public Options()
         {
             InitializeComponent();
-            opts = GlobalFunctions.GetProgramOptions();
+            opts = AppService.GetProgramOptions();
             PopulateExistingOptions();
             FixWithStaticItemTypes();
         }
@@ -47,15 +47,15 @@ namespace GenText
             opts.DefaultTermsPathP1 = txtTermsPath.Text;
             opts.DefaultTermsPathP2 = txtTermsPath_Copy.Text;
 
-            GlobalFunctions.SaveProgramOptions(opts);
-            GlobalFunctions.LogLine("Saved options");
-            GlobalFunctions.RefreshMainWindowOptions();
+            AppService.SaveProgramOptions(opts);
+            AppService.LogLine("Saved options");
+            AppService.RefreshMainWindowOptions();
             this.Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            GlobalFunctions.RefreshMainWindowOptions();
+            AppService.RefreshMainWindowOptions();
             this.Close();
         }
 
@@ -66,19 +66,19 @@ namespace GenText
         /// <param name="e"></param>
         private void BtnAddTemplate_Click(object sender, RoutedEventArgs e)
         {
-            var path = GlobalFunctions.ShowOpenFileDialog(opts, "Html-Files(*.html)|*.html");
+            var path = AppService.ShowOpenFileDialog(opts, "Html-Files(*.html)|*.html");
 
             if(!string.IsNullOrWhiteSpace(path))
             {
                 if(path.Split('.').Last().ToUpper().Equals("HTML"))
                 {
                     File.Copy(path, GlobalConstants.TemplatesPath + "\\" + path.Split('\\').Last(), true);
-                    GlobalFunctions.LogLine($"Added template file \"{path}\" to Templates");
-                    GlobalFunctions.RefreshMainWindowOptions();
+                    AppService.LogLine($"Added template file \"{path}\" to Templates");
+                    AppService.RefreshMainWindowOptions();
                 }
                 else
                 {
-                    GlobalFunctions.LogLine($"Did not add template file \"{path}\". File must be HTML type");
+                    AppService.LogLine($"Did not add template file \"{path}\". File must be HTML type");
                 }
             }
             else
@@ -99,7 +99,7 @@ namespace GenText
         {
             //TODO:implement select directory for out path
             MessageBox.Show("Not Implemented");
-            //var path = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
+            //var path = AppService.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
 
             //if(!string.IsNullOrWhiteSpace(path))
             //{
@@ -109,7 +109,7 @@ namespace GenText
 
         private void BtnSelectTermsPath_Click(object sender, RoutedEventArgs e)
         {
-            var path = GlobalFunctions.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
+            var path = AppService.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
 
             if (!string.IsNullOrWhiteSpace(path))
             {
