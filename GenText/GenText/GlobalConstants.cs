@@ -9,8 +9,9 @@ namespace GenText
     public static class GlobalConstants
     {
         public static string OptionsFilePath = "options.txt";
+        public static string DelimiterFilePath = "delimiter.txt";
         public static string TemplatesPath = "Templates";
-        //public static string DefaultPath = "c:\\";
         public static string DefaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        public static char Delimiter = AppService.GetDelimiter();
     }
 }

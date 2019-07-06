@@ -38,6 +38,8 @@ namespace GenText
             chkBasicAdvancedEqual.IsChecked = opts.BasicFieldsSameAsAdvanced;
             txtTermsPath.Text = opts.DefaultTermsPathP1;
             txtTermsPath_Copy.Text = opts.DefaultTermsPathP2;
+            txtDelimiter.Text = GlobalConstants.Delimiter.ToString();
+            txtConvertNew.Text = GlobalConstants.Delimiter.ToString();
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -68,9 +70,9 @@ namespace GenText
         {
             var path = AppService.ShowOpenFileDialog(opts, "Html-Files(*.html)|*.html");
 
-            if(!string.IsNullOrWhiteSpace(path))
+            if (!string.IsNullOrWhiteSpace(path))
             {
-                if(path.Split('.').Last().ToUpper().Equals("HTML"))
+                if (path.Split('.').Last().ToUpper().Equals("HTML"))
                 {
                     File.Copy(path, GlobalConstants.TemplatesPath + "\\" + path.Split('\\').Last(), true);
                     AppService.LogLine($"Added template file \"{path}\" to Templates");
@@ -114,6 +116,36 @@ namespace GenText
             if (!string.IsNullOrWhiteSpace(path))
             {
                 txtTermsPath.Text = path;
+            }
+        }
+
+        private void BtnConvert_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtConvertOld.Text) || !string.IsNullOrWhiteSpace(txtConvertNew.Text))
+            {
+                var path = AppService.ShowOpenFileDialog(opts, "txt files (*.txt)|*.txt");
+
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    var lines = FileIoService.GetStringCollectionFromFile(path);
+                    var newLines = new List<string>();
+
+                    foreach (string line in lines)
+                    {
+                        newLines.Add(line.Replace(txtConvertOld.Text.Single(), txtConvertNew.Text.Single()));
+                    }
+
+                    FileIoService.SaveLineCollectionToFile(newLines, path);
+                    AppService.LogLine("Converted file: " + path);
+                }
+                else
+                {
+                    MessageBox.Show("Path is required to convert file");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Must have a value in both delimiter boxes");
             }
         }
     }

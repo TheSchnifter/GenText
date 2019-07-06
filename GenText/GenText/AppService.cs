@@ -14,7 +14,7 @@ namespace GenText
         {
             //init options file
             FileIoService.CreateFileIfDoesntExist(GlobalConstants.OptionsFilePath);
-
+            
             //init templates directory
             if (!Directory.Exists(GlobalConstants.TemplatesPath))
             {
@@ -48,7 +48,7 @@ namespace GenText
         {
             ((MainWindow)System.Windows.Application.Current.Windows[0]).RefreshOptions();
         }
-        
+
         public static ProgramOptions GetProgramOptions()
         {
             var opts = new ProgramOptions();
@@ -109,7 +109,7 @@ namespace GenText
             return newLines;
 
         }
-        
+
         public static string GetTermsP1(ProgramOptions opts)
         {
             var termLines = FileIoService.GetStringCollectionFromFile(opts.DefaultTermsPathP1);
@@ -142,7 +142,7 @@ namespace GenText
             };
             var result = dialog.ShowDialog();
 
-            if(result.HasValue && result.Value)
+            if (result.HasValue && result.Value)
             {
                 UpdateLastSaveLocation(dialog.FileName);
                 return dialog.FileName;
@@ -181,6 +181,28 @@ namespace GenText
                 opts.LastSaveLocation = path;
                 SaveProgramOptions(opts);
             }
+        }
+
+        public static char GetDelimiter()
+        {
+            var fileLines = new List<string>();
+            var fileExisted = FileIoService.CreateFileIfDoesntExist(GlobalConstants.DelimiterFilePath);
+
+            if (fileExisted)
+            {
+                fileLines = FileIoService.GetStringCollectionFromFile(GlobalConstants.DelimiterFilePath);
+            }
+
+            //if the delimiter file does not exist, create it and add default delimiter
+            if (fileLines.Count == 0)
+            {
+                FileIoService.SaveSingleLineToFile("|", GlobalConstants.DelimiterFilePath);
+                LogLine("Delimiter file was created with default value |. To change, go to program directory and update character in delimiter.txt and restart application");
+                return GetDelimiter();
+            }
+            else
+                return fileLines.First().First();
+
         }
 
     }

@@ -15,13 +15,21 @@ namespace GenText
         /// creates a new blank file if doesn't exist, else do nothing
         /// </summary>
         /// <param name="path"></param>
-        public static void CreateFileIfDoesntExist(string path)
+        public static bool CreateFileIfDoesntExist(string path)
         {
+            bool fileExisted = false;
+
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, "");
                 AppService.LogLine($"File {path} not found. Creating new file");
             }
+            else
+            {
+                fileExisted = true;
+            }
+
+            return fileExisted;
         }
 
         /// <summary>
@@ -53,7 +61,7 @@ namespace GenText
 
                 while ((line = reader.ReadLine()) != null)
                 {
-                    var splitLine = line.Split(',');
+                    var splitLine = line.Split(GlobalConstants.Delimiter);
                     fileLineValues.Add(new KeyValuePair<string, string>(splitLine[0], splitLine[1]));
                 }
 
@@ -65,7 +73,7 @@ namespace GenText
             }
             catch (Exception ex)
             {
-                AppService.LogLine(ex.Message);
+                AppService.LogLine("Error loading object: " + ex.Message);
             }
 
             var obj = Activator.CreateInstance(objType.GetType());
@@ -111,7 +119,7 @@ namespace GenText
 
                 foreach (KeyValuePair<string, string> prop in props)
                 {
-                    writer.WriteLine(prop.Key + "," + prop.Value);
+                    writer.WriteLine(prop.Key + GlobalConstants.Delimiter + prop.Value);
                 }
 
                 writer.Close();
