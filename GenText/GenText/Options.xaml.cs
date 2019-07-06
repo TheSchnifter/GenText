@@ -94,7 +94,7 @@ namespace GenText
         {
             //TODO:replace this with an add/remove item types functionality
             if (string.IsNullOrWhiteSpace(opts.ItemTypesString))
-                opts.ItemTypesString = "Computer|Part|Item";
+                opts.ItemTypesString = "Computer,Part,Item";
         }
 
         private void BtnSelectOutPath_Click(object sender, RoutedEventArgs e)
