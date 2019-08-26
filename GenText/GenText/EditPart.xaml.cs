@@ -33,6 +33,7 @@ namespace GenText
             txtItemLongDescP1.Text = part.ItemLongDescP1;
             txtItemLongDescP2.Text = part.ItemLongDescP2;
             txtItemTitle.Text = part.ItemTitle;
+            txtItemLotCode.Text = part.ItemLotCode;
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
@@ -45,10 +46,11 @@ namespace GenText
             part.ItemTitle = txtItemTitle.Text;
             part.ItemLongDescP1 = txtItemLongDescP1.Text;
             part.ItemLongDescP2 = txtItemLongDescP2.Text;
+            part.ItemLotCode = txtItemLotCode.Text;
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                path = AppService.ShowSaveDialog(opts, "txt", "part");
+                path = AppService.ShowSaveDialog(opts, "txt", $"part-{part.ItemLotCode}");
             }
             else
             {

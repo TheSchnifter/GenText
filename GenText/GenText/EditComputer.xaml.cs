@@ -69,6 +69,7 @@ namespace GenText
             txtItemLongDescP1.Text = c.ItemLongDescP1;
             txtItemLongDescP2.Text = c.ItemLongDescP2;
             txtHDDInterface.Text = c.HDDInterface;
+            txtItemLotCode.Text = c.ItemLotCode;
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -100,13 +101,13 @@ namespace GenText
             c.ItemLongDescP1 = txtItemLongDescP1.Text;
             c.ItemLongDescP2 = txtItemLongDescP2.Text;
             c.HDDInterface = txtHDDInterface.Text;
+            c.ItemLotCode = txtItemLotCode.Text;
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                path = AppService.ShowSaveDialog(opts, "txt", "computer");
+                path = AppService.ShowSaveDialog(opts, "txt", $"computer-{c.ItemLotCode}");
             }
-
-            if (!string.IsNullOrWhiteSpace(path))
+            else
             {
                 FileIoService.SaveObjectToFile(c, path);
                 AppService.RefreshItem(c, path);

@@ -11,5 +11,6 @@ namespace GenText
         public string ItemTitle { get; set; }
         public string ItemLongDescP1 { get; set; }
         public string ItemLongDescP2 { get; set; }
+        public string ItemLotCode { get; set; }
     }
 }
