@@ -48,15 +48,14 @@ namespace GenText
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                path = GlobalFunctions.ShowSaveDialog(opts, "txt", "part");
+                path = AppService.ShowSaveDialog(opts, "txt", "part");
             }
-
-            if (!string.IsNullOrWhiteSpace(path))
+            else
             {
-                GlobalFunctions.SaveObjectToFile(part, path);
-                GlobalFunctions.RefreshItem(part, path);
-                GlobalFunctions.RefreshMainWindowOptions();
-                GlobalFunctions.LogLine($"Saved item to \"{path}\"");
+                FileIoService.SaveObjectToFile(part, path);
+                AppService.RefreshItem(part, path);
+                AppService.RefreshMainWindowOptions();
+                AppService.LogLine($"Saved item to \"{path}\"");
                 this.Close();
             }
         }

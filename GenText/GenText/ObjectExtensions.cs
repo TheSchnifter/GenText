@@ -10,7 +10,7 @@ namespace GenText
     {
         public static List<string> ItemTypes(this ProgramOptions opts)
         {
-            return opts.ItemTypesString.Split('|').ToList();
+            return opts.ItemTypesString.Split(',').ToList();
         }
 
         /// <summary>

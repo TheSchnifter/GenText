@@ -20,6 +20,13 @@
         <Button x:Name="btnSelectOutPath" Content="..." HorizontalAlignment="Left" Margin="747,21,0,0" VerticalAlignment="Top" Width="35" Height="23" Click="BtnSelectOutPath_Click" IsEnabled="False"/>
         <Button x:Name="btnSelectTermsPath" Content="..." HorizontalAlignment="Left" Margin="747,110,0,0" VerticalAlignment="Top" Width="35" Height="23" Click="BtnSelectTermsPath_Click"/>
         <TextBox x:Name="txtTermsPath_Copy" HorizontalAlignment="Left" Height="23" Margin="202,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
+        <TextBox x:Name="txtDelimiter" HorizontalAlignment="Left" Height="23" Margin="202,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" MaxLength="1"/>
+        <Label x:Name="label_Copy2" Content="Delimiter for save files" HorizontalAlignment="Left" Margin="70,170,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtConvertOld" HorizontalAlignment="Left" Height="23" Margin="202,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" MaxLength="1"/>
+        <TextBox x:Name="txtConvertNew" HorizontalAlignment="Left" Height="23" Margin="269,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" MaxLength="1"/>
+        <Label x:Name="label_Copy3" Content="Convert file delimiter from" HorizontalAlignment="Left" Margin="48,198,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy4" Content="To" HorizontalAlignment="Left" Margin="242,198,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnConvert" Content="Convert" HorizontalAlignment="Left" Margin="321,201,0,0" VerticalAlignment="Top" Width="98" Click="BtnConvert_Click" Height="23"/>
 
     </Grid>
 </Window>
