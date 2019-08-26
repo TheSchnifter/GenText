@@ -50,8 +50,7 @@ namespace GenText
             {
                 path = AppService.ShowSaveDialog(opts, "txt", "part");
             }
-
-            if (!string.IsNullOrWhiteSpace(path))
+            else
             {
                 FileIoService.SaveObjectToFile(part, path);
                 AppService.RefreshItem(part, path);
