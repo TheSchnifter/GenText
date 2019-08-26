@@ -37,6 +37,7 @@ namespace GenText
             RefreshOptions();
             LoadTemplates();
             LoadItemTypes();
+            Title = $"GenText {GlobalConstants.Version}";
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace GenText
         /// <param name="s"></param>
         public void LogLine(string s)
         {
-            lstLog.Items.Add(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + ": " + s);
+            lstLog.Items.Insert(0, DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + ": " + s);
         }
 
         public void LoadTemplates()
@@ -89,8 +90,12 @@ namespace GenText
 
         private void BtnOptions_Click(object sender, RoutedEventArgs e)
         {
-            var OptionsWindow = new Options();
-            OptionsWindow.Show();
+            var optionsWindow = new Options
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            optionsWindow.Show();
         }
 
         private void CboTemplate_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -199,6 +204,8 @@ namespace GenText
                     break;
             }
 
+            editWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
             editWindow.Show();
         }
 
@@ -244,6 +251,8 @@ namespace GenText
                         editWindow = new EditItem((Item)currentItem, opts);
                         break;
                 }
+
+                editWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
                 editWindow.Show();
             }

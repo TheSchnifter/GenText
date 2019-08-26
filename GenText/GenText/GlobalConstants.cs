@@ -8,6 +8,7 @@ namespace GenText
 {
     public static class GlobalConstants
     {
+        public static string Version = "1.0.0";
         public static string OptionsFilePath = "options.txt";
         public static string DelimiterFilePath = "delimiter.txt";
         public static string TemplatesPath = "Templates";

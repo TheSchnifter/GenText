@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GenText"
         mc:Ignorable="d"
-        Title="GenText v0.3" Height="539.5" Width="928">
+        Title="GenText" Height="539.5" Width="928">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="460*"/>
