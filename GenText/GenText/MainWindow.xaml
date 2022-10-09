@@ -15,7 +15,7 @@
         <ListView x:Name="lstLog" Height="262" Margin="10,237,6,0" VerticalAlignment="Top" FontSize="10" Grid.ColumnSpan="3" MinWidth="900">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Width="900"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -30,7 +30,7 @@
         <Button x:Name="btnGenerate" Content="Generate" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" Click="BtnGenerate_Click" Height="25"/>
         <Label x:Name="label2" Content="Active Item:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblActiveItem" Content="None" HorizontalAlignment="Left" Margin="82,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.132,0.077" Grid.ColumnSpan="3" Width="538"/>
-        <Button x:Name="btnUnload" Content="Save and Close" Grid.Column="2" HorizontalAlignment="Left" Margin="147,71,0,0" VerticalAlignment="Top" Width="120" Click="BtnUnload_Click" Height="25" IsEnabled="False"/>
+        <Button x:Name="btnUnload" Content="Save and Close" Grid.Column="2" HorizontalAlignment="Left" Margin="272,71,0,0" VerticalAlignment="Top" Width="120" Click="BtnUnload_Click" Height="25" IsEnabled="False"/>
         <Button x:Name="btnCopy" Content="Copy to Clipboard" HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" Width="120" Click="BtnCopy_Click" Height="25" IsEnabled="False"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Width="120" Click="BtnSave_Click" Height="25" IsEnabled="False"/>
         <Button x:Name="btnOpenHtmlDir" Content="Open Directory" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnOpenHtmlDir_Click" IsEnabled="False"/>
@@ -38,6 +38,7 @@
         <Button x:Name="btnOpenBrowser" Content="Open in Browser" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnOpenBrowser_Click" IsEnabled="False"/>
         <Button x:Name="btnSaveLog" Content="Save Log" Grid.Column="2" HorizontalAlignment="Left" Margin="147,191,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnSaveLog_Click"/>
         <Button x:Name="btnClearLog" Content="Clear Log" Grid.Column="2" HorizontalAlignment="Left" Margin="272,191,0,0" VerticalAlignment="Top" Width="120" Height="25" Click="BtnClearLog_Click"/>
+        <Button x:Name="btnUnloadWithoutSaving" Content="Close" Grid.Column="2" HorizontalAlignment="Left" Margin="147,71,0,0" VerticalAlignment="Top" Width="120" Height="25" IsEnabled="False" Click="btnUnloadWithoutSaving_Click"/>
 
     </Grid>
 </Window>

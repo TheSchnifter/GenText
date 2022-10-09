@@ -94,6 +94,12 @@ namespace GenText
                     {
                         newLines.Add(line.Replace(bracketedProp, GetTermsP2(opts)));
                     }
+                    else if (itemProp == null && propToReplace.ToUpper().Equals("TABLEROWS") && item.GetType() == typeof(MultiPropertyItem))
+                    {
+                        var realItem = (MultiPropertyItem)item;
+                        var tableRows = realItem.ItemDetails.ToHtmlTableRows();
+                        newLines.Add(line.Replace(bracketedProp, tableRows));
+                    }
                     else
                     {
                         LogLine($"Item {item.GetType().ToString()} does not contain property {propToReplace}");

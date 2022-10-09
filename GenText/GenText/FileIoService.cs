@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace GenText
 {
     public static class FileIoService
     {
-        
+
         /// <summary>
         /// creates a new blank file if doesn't exist, else do nothing
         /// </summary>
@@ -53,14 +54,40 @@ namespace GenText
             if (createIfNotFound)
                 CreateFileIfDoesntExist(path);
 
+            var reader = new StreamReader(path);
+            bool assumeJson = true;
+            var obj = Activator.CreateInstance(objType.GetType());
+
             var fileLineValues = new List<KeyValuePair<string, string>>();
             try
             {
-                var reader = new StreamReader(path);
                 string line;
 
                 while ((line = reader.ReadLine()) != null)
                 {
+                    if (assumeJson)
+                    {
+                        //assume it's json on the first line, but if it's not stop trying and parse it the old way
+                        //this should support loading the old file type but then it will always save as json moving forward
+                        try
+                        {
+                            obj = JsonConvert.DeserializeObject(line, objType.GetType());
+                        }
+                        catch (Exception ex)
+                        {
+                            //it's not json
+                            obj = null;
+                        }
+
+                        if (obj != null)
+                        {
+                            reader.Close();
+                            return obj;
+                        }
+                        else
+                            assumeJson = false;
+                    }
+
                     var splitLine = line.Split(GlobalConstants.Delimiter);
                     fileLineValues.Add(new KeyValuePair<string, string>(splitLine[0], splitLine[1]));
                 }
@@ -76,7 +103,8 @@ namespace GenText
                 AppService.LogLine("Error loading object: " + ex.Message);
             }
 
-            var obj = Activator.CreateInstance(objType.GetType());
+            //re init since it was nulled out when assuming json
+            obj = Activator.CreateInstance(objType.GetType());
 
             foreach (var prop in obj.GetType().GetProperties())
             {
@@ -98,36 +126,49 @@ namespace GenText
         }
 
         /// <summary>
-        /// saves an object's properties to the specified path as key value pairs. overwrites existing file
+        /// saves an object's properties to the specified path as json. overwrites existing file
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="path"></param>
         public static void SaveObjectToFile(Object obj, string path)
         {
-            var props = new List<KeyValuePair<string, string>>();
-
-            foreach (var prop in obj.GetType().GetProperties())
-            {
-                props.Add(new KeyValuePair<string, string>(prop.Name, prop.GetValue(obj).ToString()));
-            }
-
             EraseFile(path);
 
             try
             {
                 var writer = new StreamWriter(path);
 
-                foreach (KeyValuePair<string, string> prop in props)
-                {
-                    writer.WriteLine(prop.Key + GlobalConstants.Delimiter + prop.Value);
-                }
+                var json = JsonConvert.SerializeObject(obj);
 
+                writer.WriteLine(json);
                 writer.Close();
             }
             catch (Exception e)
             {
                 AppService.LogLine("Error saving: " + e.Message);
             }
+
+            //var props = new List<KeyValuePair<string, string>>();
+
+            //foreach (var prop in obj.GetType().GetProperties())
+            //{
+            //    props.Add(new KeyValuePair<string, string>(prop.Name, prop.GetValue(obj).ToString()));
+            //}
+
+            //try
+            //{
+            //    foreach (KeyValuePair<string, string> prop in props)
+            //    {
+            //        writer.WriteLine(prop.Key + GlobalConstants.Delimiter + prop.Value);
+            //    }
+
+            //    writer.Close();
+            //}
+            //catch (Exception e)
+            //{
+            //    AppService.LogLine("Error saving: " + e.Message);
+            //}
+
         }
 
         public static void SaveSingleLineToFile(string html, string path)
@@ -163,7 +204,7 @@ namespace GenText
                 AppService.LogLine(e.Message);
             }
         }
-        
+
         //TODO: split out data functions from non data functions
         public static List<string> GetStringCollectionFromFile(string path)
         {

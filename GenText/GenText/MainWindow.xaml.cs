@@ -32,7 +32,7 @@ namespace GenText
         public MainWindow()
         {
             InitializeComponent();
-            StupidLogWindowFix();
+            //StupidLogWindowFix();
             AppService.InitApplication();
             RefreshOptions();
             LoadTemplates();
@@ -123,6 +123,7 @@ namespace GenText
             lblActiveItem.Content = path;
             CheckCanGenerate();
             btnUnload.IsEnabled = true;
+            btnUnloadWithoutSaving.IsEnabled = true;
             btnEdit.IsEnabled = true;
             btnOpenItemDirectory.IsEnabled = true;
         }
@@ -134,7 +135,6 @@ namespace GenText
         {
             if (itemLoaded)
             {
-                FileIoService.SaveObjectToFile(currentItem, lblActiveItem.Content.ToString());
                 currentItem = null;
                 itemLoaded = false;
                 btnEdit.IsEnabled = false;
@@ -142,11 +142,21 @@ namespace GenText
                 cboItemType.IsEnabled = true;
                 lblActiveItem.Content = "None";
                 btnUnload.IsEnabled = false;
+                btnUnloadWithoutSaving.IsEnabled = false;
 
                 CheckCanGenerate();
                 UnloadGeneratedOutput();
 
                 LogLine("Closed item");
+            }
+        }
+
+        private void SaveItem()
+        {
+            if (itemLoaded)
+            {
+                FileIoService.SaveObjectToFile(currentItem, lblActiveItem.Content.ToString());
+                LogLine("Saved item");
             }
         }
 
@@ -183,6 +193,8 @@ namespace GenText
                     return new Computer();
                 case "Part":
                     return new Part();
+                case "MultiPropertyItem":
+                    return new MultiPropertyItem();
                 default:
                     return new Item();
             }
@@ -198,6 +210,9 @@ namespace GenText
                     break;
                 case "Part":
                     editWindow = new EditPart(new Part(), opts, "");
+                    break;
+                case "MultiPropertyItem":
+                    editWindow = new EditMultiPropertyItem(new MultiPropertyItem(), opts, "");
                     break;
                 default:
                     editWindow = new EditItem(new Item(), opts);
@@ -247,6 +262,9 @@ namespace GenText
                     case "Part":
                         editWindow = new EditPart((Part)currentItem, opts, lblActiveItem.Content.ToString());
                         break;
+                    case "MultiPropertyItem":
+                        editWindow = new EditMultiPropertyItem((MultiPropertyItem)currentItem, opts, lblActiveItem.Content.ToString());
+                        break;
                     default:
                         editWindow = new EditItem((Item)currentItem, opts);
                         break;
@@ -287,6 +305,13 @@ namespace GenText
         }
 
         private void BtnUnload_Click(object sender, RoutedEventArgs e)
+        {
+            SaveItem();
+            UnloadItem();
+            RefreshOptions();
+        }
+
+        private void btnUnloadWithoutSaving_Click(object sender, RoutedEventArgs e)
         {
             UnloadItem();
             RefreshOptions();

@@ -28,5 +28,17 @@ namespace GenText
 
             return true;
         }
+
+        public static string ToHtmlTableRows(this List<KeyValuePair<string,string>> items)
+        {
+            var sb = new StringBuilder();
+
+            foreach (KeyValuePair<string,string> item in items)
+            {
+                sb.Append($"<tr><td>{item.Key}</td><td>{item.Value}</td></tr>");
+            }
+
+            return sb.ToString();
+        }
     }
 }
